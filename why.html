@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - MS Sports</title>
+  <style>
+    :root {
+      --bg: #eef2ff;
+      --surface: #ffffff;
+      --text: #111827;
+      --muted: #475569;
+      --primary: #6366f1;
+      --accent: #fb7185;
+      --shadow: 0 26px 60px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      font-family: Inter, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top, rgba(99, 102, 241, 0.18), transparent 30%),
+                  linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .checkout-card {
+      width: min(760px, 100%);
+      max-height: calc(100vh - 48px);
+      margin: 0 auto;
+      background: var(--surface);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(99, 102, 241, 0.08);
+      overflow-y: auto;
+    }
+
+    .top-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding: 18px 22px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #eef2ff 0%, #ffffff 100%);
+      border: 1px solid rgba(99, 102, 241, 0.12);
+    }
+
+    .top-banner span {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .top-banner span::before {
+      content: '✓';
+      display: inline-flex;
+      width: 32px;
+      height: 32px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(99, 102, 241, 0.14);
+      color: var(--primary);
+      font-size: 0.95rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 2.8vw, 2.6rem);
+      letter-spacing: -0.03em;
+    }
+
+    .product-info {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      padding: 24px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #ffffff 0%, #eef2ff 100%);
+      border: 1px solid rgba(99, 102, 241, 0.12);
+      margin-bottom: 28px;
+    }
+
+    .product-details {
+      display: grid;
+      gap: 10px;
+    }
+
+    .product-details p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    .product-details strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+
+    .price-chip {
+      min-width: 120px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      background: rgba(251, 113, 133, 0.14);
+      color: #b91c1c;
+      font-weight: 700;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input,
+    select {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 14px 16px;
+      font-size: 0.98rem;
+      color: var(--text);
+      background: #fff;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: rgba(99, 102, 241, 0.8);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+    }
+
+    .input-error {
+      border-color: #dc2626 !important;
+      box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12) !important;
+    }
+
+    .error-message {
+      display: none;
+      color: #dc2626;
+      font-size: 0.9rem;
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .form-row.full {
+      grid-template-columns: 1fr;
+    }
+
+    .submit-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin-top: 28px;
+      padding: 16px 0;
+      border-radius: 18px;
+      border: none;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #6366f1 0%, #f472b6 100%);
+      box-shadow: 0 18px 30px rgba(99, 102, 241, 0.2);
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 35px rgba(99, 102, 241, 0.28);
+    }
+
+    .summary {
+      margin-top: 32px;
+      border-radius: 22px;
+      padding: 24px;
+      background: #f8fafc;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .summary h2 {
+      margin-top: 0;
+      color: var(--text);
+      font-size: 1.3rem;
+    }
+
+    .success-banner {
+      display: none;
+      margin-top: 24px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.05));
+      border: 1px solid rgba(16, 185, 129, 0.18);
+      color: #065f46;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .success-banner.visible {
+      display: block;
+    }
+
+    .summary p {
+      margin: 12px 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .summary strong {
+      color: var(--text);
+    }
+
+    .note {
+      margin-top: 16px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 720px) {
+      .checkout-card {
+        padding: 24px;
+      }
+
+      .product-info {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+      body {
+        padding: 16px;
+      }
+
+      .top-banner,
+      .product-info,
+      .checkout-card {
+        border-radius: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="checkout-card">
+    <div class="top-banner">
+      <div>
+        <span>Fast Checkout</span>
+      </div>
+      <div>
+        <span>Secure payment</span>
+      </div>
+    </div>
+
+    <h1>Complete your order</h1>
+    <div class="product-info">
+      <div class="product-details">
+        <p><strong>Product</strong></p>
+        <p id="productName">Loading...</p>
+        <p><strong>Price</strong></p>
+        <p id="productPrice">₹0</p>
+      </div>
+      <div class="price-chip">Pay ₹<span id="productPriceChip">0</span></div>
+    </div>
+
+    <form id="checkoutForm" method="post">
+      <div class="form-row">
+        <div>
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" required>
+        </div>
+        <div>
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" required>
+        </div>
+      </div>
+
+      <div class="form-row full">
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+          <div id="emailError" class="error-message">Email format சரியாக இருக்க வேண்டும்.</div>
+        </div>
+      </div>
+
+      <div class="form-row full">
+        <div>
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" required placeholder="Your mobile number">
+          <div id="phoneError" class="error-message">Mobile number 10 digit ஆக இருக்க வேண்டும்.</div>
+        </div>
+      </div>
+
+      <div class="form-row full">
+        <div>
+          <label for="address">Shipping Address</label>
+          <input type="text" id="address" name="address" required placeholder="Street, city, state, pincode">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label for="paymentMethod">Payment Method</label>
+          <select id="paymentMethod" name="paymentMethod" required>
+            <option value="">Choose...</option>
+            <option value="credit-card">Credit Card</option>
+            <option value="debit-card">Debit Card</option>
+            <option value="upi">UPI</option>
+            <option value="netbanking">Net Banking</option>
+          </select>
+        </div>
+        <div>
+          <label for="cardNumber">Card / UPI ID</label>
+          <input type="text" id="cardNumber" name="cardNumber" required placeholder="Card number or UPI ID">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label for="expiry">Expiry Date</label>
+          <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+        </div>
+        <div>
+          <label for="cvv">CVV</label>
+          <input type="password" id="cvv" name="cvv" placeholder="123" required>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Confirm Purchase</button>
+    </form>
+
+    <div id="orderSuccess" class="success-banner">
+      ✅ உங்கள் ஆர்டர் உறுதிசெய்யப்பட்டது! நமது அணி விரைவில் உங்களை தொடர்பு கொள்ளும்.
+    </div>
+
+    <div id="orderSummary" class="summary" style="display: none;">
+      <h2>Order Summary</h2>
+      <p><strong>Product:</strong> <span id="summaryProduct"></span></p>
+      <p><strong>Amount:</strong> ₹<span id="summaryPrice"></span></p>
+      <p><strong>Buyer:</strong> <span id="summaryBuyer"></span></p>
+      <p><strong>Contact:</strong> <span id="summaryContact"></span></p>
+      <p><strong>Payment Mode:</strong> <span id="summaryPayment"></span></p>
+      <p class="note">This is a demo summary. Integrate a payment gateway later to complete real transactions.</p>
+    </div>
+  </div>
+
+  <script>
+    function getQueryParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name) || '';
+    }
+
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function validatePhone(phone) {
+      return /^\d{10}$/.test(phone);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const productName = getQueryParam('product') || 'Selected product';
+      const productPrice = getQueryParam('price') || '0';
+      const priceText = decodeURIComponent(productPrice);
+      document.getElementById('productName').textContent = decodeURIComponent(productName);
+      document.getElementById('productPrice').textContent = `₹${priceText}`;
+      document.getElementById('productPriceChip').textContent = priceText;
+      document.getElementById('summaryProduct').textContent = decodeURIComponent(productName);
+      document.getElementById('summaryPrice').textContent = priceText;
+
+      const checkoutForm = document.getElementById('checkoutForm');
+      const emailInput = document.getElementById('email');
+      const phoneInput = document.getElementById('phone');
+      const emailError = document.getElementById('emailError');
+      const phoneError = document.getElementById('phoneError');
+
+      function clearErrors() {
+        emailInput.classList.remove('input-error');
+        phoneInput.classList.remove('input-error');
+        emailError.classList.remove('show');
+        phoneError.classList.remove('show');
+      }
+
+      [emailInput, phoneInput].forEach(function(input) {
+        input.addEventListener('input', clearErrors);
+      });
+
+      checkoutForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        clearErrors();
+
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const address = document.getElementById('address').value.trim();
+        const paymentMethod = document.getElementById('paymentMethod').value;
+        const cardNumber = document.getElementById('cardNumber').value.trim();
+        const expiry = document.getElementById('expiry').value.trim();
+        const cvv = document.getElementById('cvv').value.trim();
+
+        let isValid = true;
+
+        if (!validateEmail(email)) {
+          emailInput.classList.add('input-error');
+          emailError.classList.add('show');
+          isValid = false;
+        }
+
+        if (!validatePhone(phone)) {
+          phoneInput.classList.add('input-error');
+          phoneError.classList.add('show');
+          isValid = false;
+        }
+
+        if (!firstName || !lastName || !address || !paymentMethod || !cardNumber || !expiry || !cvv) {
+          isValid = false;
+          alert('எல்லா field-களும் fill ஆக வேண்டும்.');
+        }
+
+        if (!isValid) {
+          return;
+        }
+
+        const formData = new FormData(checkoutForm);
+        fetch('http://127.0.0.1:8001', {
+          method: 'POST',
+          body: new URLSearchParams(formData)
+        })
+          .then(function(response) {
+            return response.json().then(function(data) {
+              return { ok: response.ok, data: data };
+            });
+          })
+          .then(function(result) {
+            if (!result.ok || !result.data.valid) {
+              alert(result.data.message || 'Backend validation failed');
+              return;
+            }
+
+            document.getElementById('summaryBuyer').textContent = firstName + ' ' + lastName;
+            document.getElementById('summaryContact').textContent = email + ' • ' + phone;
+            document.getElementById('summaryPayment').textContent = paymentMethod.replace('-', ' ');
+            document.getElementById('orderSummary').style.display = 'block';
+            document.getElementById('orderSuccess').classList.add('visible');
+            document.querySelector('.submit-btn').textContent = 'Purchase Confirmed';
+            document.querySelector('.submit-btn').disabled = true;
+            document.querySelector('.submit-btn').style.opacity = '0.85';
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+          })
+          .catch(function() {
+            alert('Backend server unavailable. Please start server.py');
+          });
+      });
+    });
+  </script>
+</body>
+</html>

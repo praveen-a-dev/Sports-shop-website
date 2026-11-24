@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="ms.jpg">
+    <title>MS Sports - Our Story</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #fafafa;
+            color: #2c3e50;
+        }
+
+        /* Navigation Header */
+        header {
+            background-color: #111;
+            color: #fff;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ff4757;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff4757 0%, #f6c76a 100%);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #ff4757;
+        }
+
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        /* Hero Banner for About Page */
+        .about-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=1200') no-repeat center center/cover;
+            height: 40vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 40px;
+            letter-spacing: 1px;
+        }
+
+        /* Content Container */
+        .container {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        /* Story Section */
+        .story-section {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .story-section h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+            color: #111;
+        }
+
+        .story-section p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        /* Core Values Cards */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 70px;
+        }
+
+        .value-card {
+            background: #fff;
+            padding: 35px 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border-bottom: 4px solid #ff4757;
+        }
+
+        .value-card .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .value-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #111;
+        }
+
+        .value-card p {
+            font-size: 15px;
+            color: #777;
+            line-height: 1.6;
+        }
+
+        /* Team Section */
+        .team-section {
+            text-align: center;
+        }
+
+        .team-section h2 {
+            font-size: 30px;
+            margin-bottom: 40px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+        }
+
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid #ff4757;
+        }
+
+        .team-member h4 {
+            font-size: 18px;
+            color: #111;
+            margin-bottom: 5px;
+        }
+
+        .team-member p {
+            font-size: 14px;
+            color: #ff4757;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111;
+            color: #fff;
+            text-align: center;
+            padding: 25px;
+            margin-top: 60px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav ul li {
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo">🏆 MS Sports</div>
+        <nav>
+            <ul>
+                <li><a href="home.html" target="_self">Home</a></li>
+                <li><a href="product.html" target="_self">Products</a></li>
+                <li><a href="about.html" target="_self">About Us</a></li>
+                <li><a href="contact.html" target="_self">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="about-hero">
+        <h1>ABOUT PAGE</h1>
+    </section>
+
+    <div class="container">
+        
+        <!-- 1. Our Story -->
+        <section class="story-section">
+            <h2>Our Story</h2>
+            
+        </section>
+
+        <!-- 2. Core Pillars / Values -->
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="icon">🎯</div>
+                <h3>Our Mission</h3>
+            </div>
+            <div class="value-card">
+                <div class="icon">🤝</div>
+                <h3>Trust & Value</h3>
+            </div>
+            <div class="value-card">
+                <div class="icon">🚀</div>
+                <h3>Our Vision</h3>
+            </div>
+             <div class="value-card">
+                <div class="icon">🏅</div>
+                <h3>value products</h3>
+            </div>
+        </div>
+
+        <!-- 3. Meet the Team -->
+       
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 MS Sports. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
